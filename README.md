@@ -1,6 +1,6 @@
-# TLS/SSL Connection Monitor
+# TAK TLS/SSL CoT Monitor
 
-A Python script for connecting to TLS/SSL servers with client certificate authentication and displaying received data in real-time.
+A Python script for connecting to a TAK server with client certificate authentication and displaying received data in real-time.
 
 ## Features
 
@@ -167,3 +167,4 @@ If you see "Connection refused":
 ## License
 
 GNU General Public License v3.0	(GPL3)
+
