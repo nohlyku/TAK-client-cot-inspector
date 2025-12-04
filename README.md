@@ -4,13 +4,25 @@ A Python script for connecting to a TAK server with client certificate authentic
 
 ## Features
 
+### CLI Version (`inspect_cot_cli.py`)
 - **Multiple certificate formats**: Supports both .p12 (PKCS#12) and separate .pem certificate/key files
 - **Real-time data display**: Shows all data received from the server with timestamps
+- **Pretty CoT XML formatting**: Automatic parsing and colorized display of CoT messages with key field extraction
 - **Output logging**: Optional file logging to save all received data to a text file
 - **Connection details**: Displays TLS protocol version, cipher suite, and server certificate information
 - **Smart data handling**: Automatically decodes text or displays hex for binary data
 - **Activity monitoring**: Shows waiting indicator when connected but no data is being received
 - **Self-signed cert support**: Accepts self-signed certificates by default
+
+### GUI Version (`inspect_cot_gui.py`)
+- **Modern interface**: Light/dark mode toggle with custom color themes
+- **Visual connection status**: Entry boxes change to light blue when connected
+- **Real-time message filtering**: Filter CoT messages by callsign with partial match support
+- **Session management**: Load and save P12 certificates for the session
+- **Syntax highlighting**: Color-coded XML display in message details (tags, attributes, values)
+- **Message history**: View all received messages with searchable list
+- **Export functionality**: Save filtered messages to file
+- **Connection management**: Easy connect/disconnect with visual status indicators
 
 ## Requirements
 
@@ -20,41 +32,62 @@ A Python script for connecting to a TAK server with client certificate authentic
 ### Installation
 
 ```bash
+pip install -r requirements.txt
+```
+
+Or manually:
+```bash
 pip install cryptography
 ```
 
 ## Usage
 
-### With .p12 Certificate File
+### CLI Version - With .p12 Certificate File
 
 ```bash
-python3 inspect_cot_tls <host> <port> --p12 <file.p12> [--password <password>] [--output <file.txt>]
+python inspect_cot_cli.py <host> <port> --p12 <file.p12> [--password <password>] [--output <file.txt>]
 ```
 
 **Examples:**
 ```bash
-# .p12 file with password
-python3 inspect_cot_tls demo.tak-ops.com 8089 --p12 client.p12 --password mypassword
+# .p12 file with password (with pretty CoT formatting)
+python inspect_cot_cli.py demo.tak-ops.com 8089 --p12 client.p12 --password mypassword
 
 # .p12 file without password
-python3 inspect_cot_tls server.example.com 443 --p12 client.p12
+python inspect_cot_cli.py server.example.com 443 --p12 client.p12
 
 # Save output to file
-python3 inspect_cot_tls demo.tak-ops.com 8089 --p12 client.p12 --password mypassword -o output.txt
+python inspect_cot_cli.py demo.tak-ops.com 8089 --p12 client.p12 --password mypassword -o output.txt
 ```
 
-### With Separate Certificate and Key Files
+### CLI Version - With Separate Certificate and Key Files
 
 ```bash
-python3 inspect_cot_tls <host> <port> --cert <cert.pem> --key <key.pem> [--output <file.txt>]
+python inspect_cot_cli.py <host> <port> --cert <cert.pem> --key <key.pem> [--output <file.txt>]
 ```
+
+### GUI Version
+
+```bash
+python inspect_cot_gui.py
+```
+
+**GUI Features:**
+1. **Connection**: Enter server, port, and P12 certificate details
+2. **Dark Mode**: Toggle between light and dark themes
+3. **Filtering**: 
+   - Enter callsigns separated by commas (e.g., "ALPHA,BRAVO,CHARLIE")
+   - Enable "Partial Match" to match substrings (e.g., "TEAM" matches "TEAM-1", "ALPHA-TEAM")
+   - Clear filter to show all messages
+4. **Message Details**: Click any message to view full XML with syntax highlighting
+5. **Export**: Save filtered messages to a text file
 
 **Example:**
 ```bash
-python3 inspect_cot_tls server.example.com 443 --cert client.pem --key client-key.pem
+python3 inspect_cot_cli server.example.com 443 --cert client.pem --key client-key.pem
 
 # With output file
-python3 inspect_cot_tls server.example.com 443 --cert client.pem --key client-key.pem -o log.txt
+python3 inspect_cot_cli server.example.com 443 --cert client.pem --key client-key.pem -o log.txt
 ```
 
 ## Command Line Options
