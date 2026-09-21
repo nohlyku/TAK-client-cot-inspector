@@ -13,3 +13,10 @@ env/
 
 #certs
 certs/
+*.p12
+*.pem
+*.key
+
+# Editors
+.vscode/
+.idea/
